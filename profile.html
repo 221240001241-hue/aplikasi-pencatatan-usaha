@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - Labaku</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="mobile-frame">
+        <header class="app-header-gradient">
+            <div class="status-bar">
+                <!-- top-right status icons removed per request -->
+            </div>
+            <div class="header-main">
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <div class="brand-icon">
+                        <img src="assets/logo.png" alt="Logo Labaku" />
+                    </div>
+                    <div>
+                        <div class="app-title">Labaku</div>
+                        <div class="app-sub">Profil</div>
+                    </div>
+                </div>
+                <div class="header-clock status-center" aria-hidden="true">
+                    <div id="centerTime">--:--</div>
+                    <div id="centerDate">-- -- ----</div>
+                </div>
+                <div class="profile-area">
+                    <div class="avatar"><i data-feather="user"></i></div>
+                    <div class="profile-info">
+                        <div class="profile-name">Toko Saya</div>
+                        <div class="profile-sub">Pemilik</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="screen-content">
+            <!-- Card Informasi Usaha -->
+            <div class="card">
+                <h3>Informasi Usaha</h3>
+                <div class="form-group">
+                    <label class="form-label" for="businessName">Nama Bisnis</label>
+                    <input type="text" id="businessName" class="form-input" value="Toko Saya">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="businessType">Jenis Usaha</label>
+                    <input type="text" id="businessType" class="form-input" value="Toko Retail">
+                </div>
+                <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end;">
+                    <button class="btn btn-primary" id="saveProfileBtn">Simpan Profil</button>
+                </div>
+            </div>
+
+            <!-- Card Preferensi -->
+            <!-- Preferensi dihapus: UI disederhanakan sesuai permintaan -->
+
+            <!-- Card Data -->
+            <div class="card">
+                <h3>Manajemen Data</h3>
+                <div class="data-actions" style="display:flex;flex-direction:column;gap:12px;margin-top:12px;">
+                    <button class="big-action btn btn-primary" id="backupBtn" onclick="backupData()">
+                        <span style="display:inline-flex;align-items:center;gap:8px"><span class="material-icons">backup</span> Cadangkan Data</span>
+                    </button>
+
+                    <label class="big-action" for="restoreInput" style="margin:0">
+                        <input type="file" id="restoreInput" accept="application/json" style="display:none">
+                        <button class="big-action btn" style="width:100%;">Pulihkan Data (Pilih file)</button>
+                    </label>
+
+                    <button class="big-action btn btn-danger" id="resetTransactionsBtn">Hapus Semua Transaksi</button>
+
+                    <button class="big-action btn btn-danger" id="resetAllBtn">Reset Semua Data</button>
+                </div>
+            </div>
+
+            <!-- Card Tentang -->
+            <div class="card" style="margin-bottom: 80px;">
+                <h3>Tentang Aplikasi</h3>
+                <ul class="settings-list">
+                    <li class="settings-item">
+                        <span>Versi</span>
+                        <span>1.0.0</span>
+                    </li>
+                    <li class="settings-item">
+                        <span>Kebijakan Privasi</span>
+                        <span class="material-icons">chevron_right</span>
+                    </li>
+                    <li class="settings-item">
+                        <span>Syarat & Ketentuan</span>
+                        <span class="material-icons">chevron_right</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <nav class="bottom-nav">
+            <a href="transaction-form.html?type=income" class="nav-item" title="Tambah Pemasukan">
+                <span class="icon"><i data-feather="trending-up"></i></span>
+                <span class="sr-only">Pemasukan</span>
+            </a>
+            <a href="transaction-form.html?type=expense" class="nav-item" title="Tambah Pengeluaran">
+                <span class="icon"><i data-feather="trending-down"></i></span>
+                <span class="sr-only">Pengeluaran</span>
+            </a>
+            <a href="index.html" class="nav-item" title="Beranda">
+                <span class="icon"><i data-feather="layout"></i></span>
+                <span class="sr-only">Beranda</span>
+            </a>
+            <a href="recap.html" class="nav-item" title="Rekap">
+                <span class="icon"><i data-feather="pie-chart"></i></span>
+                <span class="sr-only">Rekap</span>
+            </a>
+            <a href="profile.html" class="nav-item active" title="Profil">
+                <span class="icon"><i data-feather="settings"></i></span>
+                <span class="sr-only">Profil</span>
+            </a>
+        </nav>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>

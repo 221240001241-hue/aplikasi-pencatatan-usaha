@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaksi - Labaku</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="mobile-frame">
+        <header class="app-header-gradient">
+            <div class="status-bar">
+                <!-- top-right status icons removed per request -->
+            </div>
+            <div class="header-main">
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <div class="brand-icon">
+                        <img src="assets/logo.png" alt="Logo Labaku" />
+                    </div>
+                    <div>
+                        <div class="app-title">Labaku</div>
+                        <div class="app-sub">Transaksi</div>
+                    </div>
+                </div>
+                <div class="header-clock status-center" aria-hidden="true">
+                    <div id="centerTime">--:--</div>
+                    <div id="centerDate">-- -- ----</div>
+                </div>
+                <div class="profile-area">
+                    <div class="avatar"><i data-feather="user"></i></div>
+                    <div class="profile-info">
+                        <div class="profile-name">Toko Saya</div>
+                        <div class="profile-sub">Pemilik</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="screen-content">
+            <div class="card">
+            <div class="form-group">
+                <input type="search" class="form-input" placeholder="Cari transaksi berdasarkan kategori atau catatan...">
+            </div>
+
+            <div class="form-group">
+                <div style="display: flex; gap: 8px;">
+                    <button class="period-btn">Tanggal</button>
+                    <button class="period-btn">Kategori</button>
+                    <button class="period-btn">Akun</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="list-item income">
+            <div>
+                <strong>Penjualan</strong>
+                <p>5 Nov 2025</p>
+                <small>Kas</small>
+            </div>
+            <div style="text-align: right;">
+                <strong class="income">+Rp 1.000.000</strong>
+                <p>Pembayaran Customer A</p>
+            </div>
+        </div>
+
+        <div class="list-item expense">
+            <div>
+                <strong>Belanja Bahan</strong>
+                <p>5 Nov 2025</p>
+                <small>Kas</small>
+            </div>
+            <div style="text-align: right;">
+                <strong class="expense">-Rp 500.000</strong>
+                <p>Stok bahan baku</p>
+            </div>
+        </div>
+
+            </div>
+
+        </div>
+
+        <button class="fab" aria-label="Tambah Transaksi">
+            <span class="material-icons">add</span>
+        </button>
+
+        <nav class="bottom-nav">
+            <a href="transaction-form.html?type=income" class="nav-item" title="Tambah Pemasukan">
+                <span class="icon"><i data-feather="trending-up"></i></span>
+                <span class="sr-only">Pemasukan</span>
+            </a>
+            <a href="transaction-form.html?type=expense" class="nav-item" title="Tambah Pengeluaran">
+                <span class="icon"><i data-feather="trending-down"></i></span>
+                <span class="sr-only">Pengeluaran</span>
+            </a>
+            <a href="index.html" class="nav-item" title="Beranda">
+                <span class="icon"><i data-feather="layout"></i></span>
+                <span class="sr-only">Beranda</span>
+            </a>
+            <a href="recap.html" class="nav-item" title="Rekap">
+                <span class="icon"><i data-feather="pie-chart"></i></span>
+                <span class="sr-only">Rekap</span>
+            </a>
+            <a href="profile.html" class="nav-item" title="Profil">
+                <span class="icon"><i data-feather="settings"></i></span>
+                <span class="sr-only">Profil</span>
+            </a>
+        </nav>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

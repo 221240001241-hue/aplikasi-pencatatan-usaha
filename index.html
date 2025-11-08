@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labaku - Beranda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Feather icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="mobile-frame">
+        <header class="app-header-gradient">
+            <div class="status-bar">
+                <!-- top-right status icons removed per request -->
+            </div>
+            <div class="header-main">
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <div class="brand-icon">
+                        <img src="assets/logo.png" alt="Logo Labaku" />
+                    </div>
+                    <div>
+                        <div class="app-title">Labaku</div>
+                        <div class="app-sub">Ringkasan usaha</div>
+                    </div>
+                    <!-- side time removed; center clock used instead -->
+                </div>
+                <!-- inline clock placed between brand and profile (Labaku - Jam - Profile) -->
+                <div class="header-clock status-center" aria-hidden="true">
+                    <div id="centerTime">--:--</div>
+                    <div id="centerDate">-- -- ----</div>
+                </div>
+                <div class="profile-area">
+                    <div class="avatar"><i data-feather="user"></i></div>
+                    <div class="profile-info">
+                        <div class="profile-name">Toko Saya</div>
+                        <div class="profile-sub">Pemilik</div>
+                    </div>
+                </div>
+            </div>
+
+            <svg class="card-wave" viewBox="0 0 500 60" preserveAspectRatio="none">
+                <path d="M0,30 C120,80 220,0 500,30 L500,60 L0,60 Z" fill="rgba(255,255,255,0.12)"></path>
+            </svg>
+    </header>
+
+    <div class="screen-content" style="padding:12px;">
+            <div class="card balance-card">
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                    <div>
+                        <div style="font-size:12px;opacity:0.9">Laba Anda</div>
+                        <div class="balance-number" id="profitAmount">Rp 200.000</div>
+                    </div>
+                    <div style="text-align:right">
+                        <div style="font-size:12px;opacity:0.9">Periode</div>
+                        <div style="display:flex;gap:8px;align-items:center;justify-content:flex-end">
+                            <!-- compact period display; opens modal to edit -->
+                            <div id="periodDisplay" class="period-compact" tabindex="0" role="button" aria-label="Pilih periode">
+                                <i data-feather="calendar" class="period-icon"></i>
+                                <span id="periodText">-</span>
+                            </div>
+                            <!-- hidden inputs (source of truth for period) -->
+                            <input type="hidden" id="periodFrom">
+                            <input type="hidden" id="periodTo">
+                        </div>
+                    </div>
+                </div>
+                <div class="mini-card-row" style="margin-top:12px;">
+                    <div class="mini-card">
+                        <div style="font-size:12px;opacity:0.9">Pemasukan</div>
+                        <div style="font-weight:700" id="periodIncome">Rp 5.000.000</div>
+                    </div>
+                    <div class="mini-card">
+                        <div style="font-size:12px;opacity:0.9">Pengeluaran</div>
+                        <div style="font-weight:700" id="periodExpense">Rp 3.000.000</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <h3 style="margin:0">Statistik (Per Hari)</h3>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <button class="btn" id="openCalendarBtn">Periode</button>
+                    </div>
+                </div>
+                <!-- grafik dihilangkan: statistik akan otomatis diupdate pada periode -->
+            </div>
+
+            <div class="card">
+                <h3 style="margin-bottom:8px">Transaksi Terbaru</h3>
+                <div id="recentList">
+                    <!-- recent via JS -->
+                </div>
+            </div>
+        </div>
+
+    <button class="fab" aria-label="Tambah Transaksi" id="fabBtn">
+            <i data-feather="plus"></i>
+        </button>
+
+        <div class="quick-actions" id="quickActions" style="display:none">
+            <button class="quick-action-btn" id="quickIncome" title="Tambah Pemasukan"><i data-feather="arrow-down"></i></button>
+            <button class="quick-action-btn" id="quickExpense" title="Tambah Pengeluaran"><i data-feather="arrow-up"></i></button>
+        </div>
+
+        <div class="modal-backdrop" id="modalBackdrop">
+            <div class="modal" id="calendarModal">
+                <h3>Pilih Periode</h3>
+                <div style="display:flex;gap:8px;">
+                    <input type="date" id="fromDate" class="form-input">
+                    <input type="date" id="toDate" class="form-input">
+                </div>
+                <div style="display:flex;gap:8px;margin-top:12px;">
+                    <button class="btn" id="applyPeriod">Terapkan</button>
+                    <button class="btn" id="closeModal">Batal</button>
+                </div>
+            </div>
+        </div>
+
+        <nav class="bottom-nav">
+            <a href="transaction-form.html?type=income" class="nav-item" title="Tambah Pemasukan">
+                <span class="icon"><i data-feather="trending-up"></i></span>
+                <span class="sr-only">Pemasukan</span>
+            </a>
+            <a href="transaction-form.html?type=expense" class="nav-item" title="Tambah Pengeluaran">
+                <span class="icon"><i data-feather="trending-down"></i></span>
+                <span class="sr-only">Pengeluaran</span>
+            </a>
+            <a href="index.html" class="nav-item home-item active" title="Beranda">
+                <span class="icon"><i data-feather="layout"></i></span>
+                <span class="sr-only">Beranda</span>
+            </a>
+            <a href="recap.html" class="nav-item" title="Rekap">
+                <span class="icon"><i data-feather="pie-chart"></i></span>
+                <span class="sr-only">Rekap</span>
+            </a>
+            <a href="profile.html" class="nav-item" title="Profil">
+                <span class="icon"><i data-feather="settings"></i></span>
+                <span class="sr-only">Profil</span>
+            </a>
+        </nav>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

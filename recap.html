@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekap - Labaku</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="mobile-frame">
+        <header class="app-header-gradient">
+            <div class="status-bar">
+                <!-- top-right status icons removed per request -->
+            </div>
+            <div class="header-main">
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <div class="brand-icon">
+                        <img src="assets/logo.png" alt="Logo Labaku" />
+                    </div>
+                    <div>
+                        <div class="app-title">Labaku</div>
+                        <div class="app-sub">Rekap</div>
+                    </div>
+                </div>
+                <div class="header-clock status-center" aria-hidden="true">
+                    <div id="centerTime">--:--</div>
+                    <div id="centerDate">-- -- ----</div>
+                </div>
+                <div class="profile-area">
+                    <div class="avatar"><i data-feather="user"></i></div>
+                    <div class="profile-info">
+                        <div class="profile-name">Toko Saya</div>
+                        <div class="profile-sub">Pemilik</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="screen-content">
+            <!-- Card Periode & Ringkasan -->
+            <div class="card">
+                <!-- Ringkasan bergaya balance-card (sama seperti halaman Beranda) -->
+                <div class="balance-card recap-summary" style="padding:16px;">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+                        <div>
+                            <div style="font-size:12px;opacity:0.85">Laba Anda</div>
+                            <div id="recapProfit" style="font-weight:700;font-size:18px;margin-top:6px">Rp 0</div>
+                        </div>
+
+                        <div style="text-align:right">
+                            <div style="font-size:12px;opacity:0.85">Periode</div>
+                            <!-- compact period display (like home) placed inside card on the right -->
+                            <div id="recapPeriodDisplay" class="period-compact" tabindex="0" role="button" aria-label="Pilih periode recap" style="margin-top:6px">
+                                <i data-feather="calendar" class="period-icon"></i>
+                                <span id="recapPeriodText">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mini-card-row" style="margin-top:12px;display:flex;gap:12px;">
+                        <div class="mini-card">
+                            <div style="font-size:12px;opacity:0.9">Pemasukan</div>
+                            <div id="recapIncome" style="font-weight:700">Rp 0</div>
+                        </div>
+                        <div class="mini-card">
+                            <div style="font-size:12px;opacity:0.9">Pengeluaran</div>
+                            <div id="recapExpense" style="font-weight:700">Rp 0</div>
+                        </div>
+                    </div>
+
+                    <!-- hidden inputs to keep compatibility with JS (recapFrom/recapTo) -->
+                    <input type="hidden" id="recapFrom">
+                    <input type="hidden" id="recapTo">
+                </div>
+            </div>
+
+            <!-- Card Kategori & Filter -->
+            <div class="card">
+                <div style="display:block;">
+                    <h3 style="margin:0 0 8px 0">Kategori Rekap</h3>
+                    <div class="table-container">
+                        <table class="category-table" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th>Kategori</th>
+                                    <th>Pemasukan</th>
+                                    <th>Pengeluaran</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recapCategories">
+                                <!-- Populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Filter pilihan: Semua / Masuk / Keluar -->
+                <div style="margin-top:16px;border-top:1px solid rgba(0,0,0,0.04);padding-top:12px;">
+                    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+                        <div style="display:flex;gap:8px;align-items:center;">
+                            <label style="font-weight:600;margin-right:6px">Tampilkan:</label>
+                            <label><input type="radio" name="recapType" value="all" checked> Semua</label>
+                            <label><input type="radio" name="recapType" value="IN"> Masuk</label>
+                            <label><input type="radio" name="recapType" value="OUT"> Keluar</label>
+                        </div>
+                        <div style="margin-left:auto;font-size:13px;color:var(--text-secondary);">Tabel transaksi periode dipilih</div>
+                    </div>
+
+                    <!-- Full transactions table -->
+                    <div style="margin-top:12px;overflow:auto;">
+                        <table class="category-table" style="width:100%;min-width:700px;">
+                            <thead>
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>Kategori</th>
+                                    <th>Akun</th>
+                                    <th>Nominal</th>
+                                    <th>Catatan</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recapTransactions">
+                                <!-- populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Export -->
+            <div class="card" style="margin-bottom: 80px;">
+                <div style="display: flex; gap: 12px;">
+                    <button class="btn btn-primary" style="flex: 1;" id="exportCsvBtn">
+                        <i data-feather="download"></i>
+                        Ekspor CSV
+                    </button>
+                    <button class="btn" style="flex: 1;" onclick="printRecap()">
+                        <i data-feather="printer"></i>
+                        Cetak Laporan
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <nav class="bottom-nav">
+            <a href="transaction-form.html?type=income" class="nav-item" title="Tambah Pemasukan">
+                <span class="icon"><i data-feather="trending-up"></i></span>
+                <span class="sr-only">Pemasukan</span>
+            </a>
+            <a href="transaction-form.html?type=expense" class="nav-item" title="Tambah Pengeluaran">
+                <span class="icon"><i data-feather="trending-down"></i></span>
+                <span class="sr-only">Pengeluaran</span>
+            </a>
+            <a href="index.html" class="nav-item" title="Beranda">
+                <span class="icon"><i data-feather="layout"></i></span>
+                <span class="sr-only">Beranda</span>
+            </a>
+            <a href="recap.html" class="nav-item active" title="Rekap">
+                <span class="icon"><i data-feather="pie-chart"></i></span>
+                <span class="sr-only">Rekap</span>
+            </a>
+            <a href="profile.html" class="nav-item" title="Profil">
+                <span class="icon"><i data-feather="settings"></i></span>
+                <span class="sr-only">Profil</span>
+            </a>
+        </nav>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

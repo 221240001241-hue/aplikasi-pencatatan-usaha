@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Transaksi - Labaku</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="mobile-frame">
+        <header class="app-header-gradient">
+            <div class="status-bar">
+                <!-- top-right status icons removed per request -->
+            </div>
+            <div class="header-main">
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <div class="brand-icon">
+                        <img src="assets/logo.png" alt="Logo Labaku" />
+                    </div>
+                    <div>
+                        <div class="app-title">Labaku</div>
+                        <div class="app-sub" id="transactionType">Tambah Transaksi</div>
+                    </div>
+                </div>
+                <div class="header-clock status-center" aria-hidden="true">
+                    <div id="centerTime">--:--</div>
+                    <div id="centerDate">-- -- ----</div>
+                </div>
+                <div class="profile-area">
+                    <div class="avatar"><i data-feather="user"></i></div>
+                    <div class="profile-info">
+                        <div class="profile-name">Toko Saya</div>
+                        <div class="profile-sub">Pemilik</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="screen-content">
+        <form id="transactionForm" class="card">
+            <div class="form-group">
+                <label class="form-label">Jenis Transaksi</label>
+                <div style="display: flex; gap: 16px;">
+                    <label>
+                        <input type="radio" name="type" value="income" checked>
+                        Pemasukan
+                    </label>
+                    <label>
+                        <input type="radio" name="type" value="expense">
+                        Pengeluaran
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="amount">Nominal (Rp)</label>
+                <input type="number" id="amount" name="amount" class="form-input" required placeholder="0" min="1">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="category">Kategori</label>
+                <select id="category" name="category" class="form-input" required>
+                    <option value="">Pilih Kategori</option>
+                    <option value="1">Penjualan</option>
+                    <option value="2">Belanja Bahan</option>
+                    <option value="3">Gaji</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="date">Tanggal</label>
+                <input type="date" id="date" name="date" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="notes">Catatan (Opsional)</label>
+                <textarea id="notes" name="notes" class="form-input" rows="3" placeholder="Tambahkan keterangan transaksi di sini..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="account">Akun (Opsional)</label>
+                <select id="account" name="account" class="form-input">
+                    <option value="">Pilih Akun</option>
+                    <option value="cash">Kas</option>
+                    <option value="bank">Bank</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Simpan</button>
+        </form>
+    </div>
+
+        <nav class="bottom-nav">
+            <a href="transaction-form.html?type=income" class="nav-item" title="Tambah Pemasukan">
+                <span class="icon"><i data-feather="trending-up"></i></span>
+                <span class="sr-only">Pemasukan</span>
+            </a>
+            <a href="transaction-form.html?type=expense" class="nav-item active" title="Tambah Pengeluaran">
+                <span class="icon"><i data-feather="trending-down"></i></span>
+                <span class="sr-only">Pengeluaran</span>
+            </a>
+            <a href="index.html" class="nav-item" title="Beranda">
+                <span class="icon"><i data-feather="layout"></i></span>
+                <span class="sr-only">Beranda</span>
+            </a>
+            <a href="recap.html" class="nav-item" title="Rekap">
+                <span class="icon"><i data-feather="pie-chart"></i></span>
+                <span class="sr-only">Rekap</span>
+            </a>
+            <a href="profile.html" class="nav-item" title="Profil">
+                <span class="icon"><i data-feather="settings"></i></span>
+                <span class="sr-only">Profil</span>
+            </a>
+        </nav>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Fungsi untuk mengupdate judul dan sub-judul
+        function updateTransactionType(type) {
+            const subTitle = document.getElementById('transactionType');
+            if (subTitle) {
+                subTitle.textContent = type === 'income' ? 'Pemasukan' : 'Pengeluaran';
+            }
+            // Update judul halaman
+            document.title = `${type === 'income' ? 'Pemasukan' : 'Pengeluaran'} - Labaku`;
+        }
+
+        // Set initial type dari query parameter
+        const params = new URLSearchParams(location.search);
+        const preset = params.get('type');
+        if (preset) {
+            const el = document.querySelector(`input[name=type][value='${preset==='income'?'income':'expense'}']`);
+            if (el) {
+                el.checked = true;
+                updateTransactionType(preset);
+            }
+        }
+
+        // Update saat radio button diubah
+        document.querySelectorAll('input[name="type"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                updateTransactionType(e.target.value);
+            });
+        });
+
+        const form = document.getElementById('transactionForm');
+        if (form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (!validateForm(form)) return;
+                const data = new FormData(form);
+                const obj = {
+                    type: data.get('type') === 'income' ? 'IN' : 'OUT',
+                    amount: parseInt(data.get('amount')),
+                    category: document.getElementById('category').selectedOptions[0].text,
+                    account: data.get('account'),
+                    date: data.get('date'),
+                    note: data.get('notes')
+                };
+                addTransaction(obj);
+                alert('Transaksi berhasil disimpan');
+                window.location.href = 'index.html';
+            });
+        }
+    </script>
+</body>
+</html>
