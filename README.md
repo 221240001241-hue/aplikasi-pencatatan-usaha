@@ -1,4 +1,5 @@
 # Labaku - Aplikasi Pencatatan Keuangan UMKM
+https://221240001241-hue.github.io/aplikasi-pencatatan-usaha/
 
 Labaku adalah aplikasi web progresif (PWA) sederhana untuk mencatat dan mengelola keuangan usaha kecil dan menengah (UMKM). Dirancang dengan fokus pada kemudahan penggunaan dan kebutuhan dasar pelaku UMKM.
 
